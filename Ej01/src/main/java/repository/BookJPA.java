@@ -1,5 +1,4 @@
 package repository;
-import entities.Author;
 import entities.Book;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
@@ -29,7 +28,7 @@ public class BookJPA extends JPA {
     } catch (Exception e) { throw e; }
     }
 
-    public List<Book> findByEditorial(String editorial) {
+    public List<Book> findByPublishingHouse(String editorial) {
         try {
         TypedQuery<Book> searchBooksByEditorial =
                 em.createQuery(" SELECT b FROM Book b WHERE editorial.name = '" + editorial + "'", Book.class);

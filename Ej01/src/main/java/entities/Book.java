@@ -25,6 +25,6 @@ public class Book {
     @JoinColumn (name = "authors")
     private Author author;
     @OneToOne
-    @JoinColumn (name = "editorials")
-    private Editorial editorial;
+    @JoinColumn (name = "publishing_house")
+    private PublishingHouse editorial;
 }

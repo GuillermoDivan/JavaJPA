@@ -18,14 +18,13 @@ public class AuthorService {
         return a;
     }
 
-    public Author showAuthorById(Long id){
+    public Author showAuthorById(Long id) throws Exception{
         Author a = authorJPA.findById(id);
         System.out.println(a);
         return a; }
 
     public Author showAuthorByName(String name) throws Exception{
         Author a = authorJPA.findByName(name);
-        System.out.println(a);
         return a; }
 
     public Author updateAuthor(Long id, String name){

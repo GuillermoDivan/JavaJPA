@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "editorials")
-public class Editorial {
+@Table(name = "publishing_house")
+public class PublishingHouse {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
+        @Column (unique = true)
         private String name;
         private boolean active;
     }

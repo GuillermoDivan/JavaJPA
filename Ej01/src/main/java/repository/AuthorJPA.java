@@ -7,16 +7,14 @@ public class AuthorJPA extends JPA {
 
     public Author findById(Long id){
         Author a = em.find(Author.class, id);
-        if (a != null ) { return a; } else { return null; }
+        return a;
     }
 
-    public Author findByName(String name) throws Exception{
-        try {
+    public Author findByName(String name) {
             TypedQuery<Author> searchAuthorByName =
                     em.createQuery(" SELECT b FROM Author b WHERE name = '" + name + "'", Author.class);
             Author a = searchAuthorByName.getSingleResult();
             return a;
-        } catch (Exception e) { throw e;  }
     }
 
     public void remove(Long id){
