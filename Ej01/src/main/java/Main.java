@@ -18,7 +18,7 @@ public class Main {
             //es.updatePublishingHouse(1L, "Argenta");
             //es.inactivePublishingHouse(1L);
             //es.reactivePublishingHouse(1L);
-            es.deletePublishingHouse(2L);
+            //es.deletePublishingHouse(2L);
             //PublishingHouse Amo = es.createPublishingHouse("Amorrortu");
             //es.showPublishingHouseById(1L);
             //es.showPublishingHouseByName("Amorrortu");
@@ -27,7 +27,7 @@ public class Main {
         //as.updateAuthor(1L, "Isabel Allende");
         //as.inactiveAuthor(1L);
         //as.reactiveAuthor(1L);
-        as.deleteAuthor(2L);
+        //as.deleteAuthor(2L);
         //Author Mario = as.createAuthor("Mario Benedetti");
         //as.showAuthorById(1L);
         //as.showAuthorByName("Mario Benedetti");
