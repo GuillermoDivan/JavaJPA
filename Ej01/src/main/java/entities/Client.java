@@ -19,7 +19,7 @@ public class Client {
     private String name;
     private String lastname;
     private String phone;
+    private boolean active;
     @OneToMany
-    @JoinColumn (name = "borrowing")
     private List<Borrowing> borrowingList;
 }

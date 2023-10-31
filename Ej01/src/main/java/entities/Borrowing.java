@@ -17,6 +17,7 @@ public class Borrowing {
     private Long id;
     private LocalDateTime borrowDate;
     private LocalDateTime devolutionDate;
+    private boolean active;
     @ManyToOne
     @JoinColumn (name = "books")
     private Book book;

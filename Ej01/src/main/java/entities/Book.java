@@ -28,6 +28,5 @@ public class Book {
     @JoinColumn (name = "publishing_house")
     private PublishingHouse editorial;
     @OneToMany
-    @JoinColumn (name = "borrowing")
     private List<Borrowing> borrowingList;
 }

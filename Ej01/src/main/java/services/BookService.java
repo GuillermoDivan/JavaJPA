@@ -79,7 +79,7 @@ public class BookService {
 
     public Book updateBook(Long id, String title, int year, int copies, int borrowedCopies, int availableCopies, Author author, PublishingHouse publishingHouse) {
         Book  b = bookJPA.findById(id);
-         b.setTitle(title);
+        if (title != null) { b.setTitle(title); }
          b.setYear(year);
          b.setCopies(copies);
          b.setBorrowedCopies(borrowedCopies);
