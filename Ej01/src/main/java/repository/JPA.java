@@ -13,7 +13,7 @@ public abstract class JPA {
         em.getTransaction().commit();
     }
 
-    public void merge(Object o){
+    public void merge(Object o) {
         em.getTransaction().begin();
         em.merge(o);
         em.getTransaction().commit();

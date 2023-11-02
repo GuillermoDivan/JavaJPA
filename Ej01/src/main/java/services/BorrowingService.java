@@ -1,6 +1,8 @@
 package services;
 import repository.BorrowingJPA;
 import entities.*;
+import repository.ClientJPA;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,14 +11,17 @@ public class BorrowingService {
     private BorrowingJPA borrowingJPA;
     private BookService bookService;
     private ClientService clientService;
+    private ClientJPA clientJPA;
 
-    public BorrowingService(BorrowingJPA borrowingJPA, BookService bookService, ClientService clientService) {
+    public BorrowingService(BorrowingJPA borrowingJPA, BookService bookService,
+                            ClientService clientService, ClientJPA clientJPA) {
         this.borrowingJPA = borrowingJPA;
         this.bookService = bookService;
         this.clientService = clientService;
+        this.clientJPA = clientJPA;
     }
 
-    public Borrowing saveBorrowing(Book book, Client client, LocalDateTime devolutionDate) throws RuntimeException {
+    public Borrowing saveBorrowing(Book book, Client client) throws RuntimeException {
         Borrowing bor = new Borrowing();
         Book b1 = bookService.showBookById(book.getIsbn());
         if (b1 != null) {
@@ -31,7 +36,7 @@ public class BorrowingService {
             throw new RuntimeException();
         }
         bor.setBorrowDate(LocalDateTime.now());
-        bor.setDevolutionDate(devolutionDate);
+        bor.setDevolutionDate(LocalDateTime.now().plusDays(14));
         bor.setActive(true);
         borrowingJPA.persist(bor);
         return bor;
@@ -42,19 +47,22 @@ public class BorrowingService {
         System.out.println(bor);
         return bor;
     }
-}
-    /*
+
     public List <Borrowing> showBorrowingByBookIdNow(Long bookId){
         LocalDateTime now = LocalDateTime.now();
         List <Borrowing> bor = borrowingJPA.findByBookIdNow(bookId, now);
-        System.out.println(bor);
+        for (Borrowing b : bor) {
+            System.out.println(b);
+        }
         return bor;
     }
 
     public List <Borrowing> showBorrowingByBookTitleNow(String bookTitle){
         LocalDateTime now = LocalDateTime.now();
         List <Borrowing> bor = borrowingJPA.findByBookTitleNow(bookTitle, now);
-        System.out.println(bor);
+        for (Borrowing b : bor) {
+            System.out.println(b);
+        }
         return bor;
     }
 
@@ -65,51 +73,43 @@ public class BorrowingService {
         return bor;
     }
 
-    public List <Borrowing> showBorrowingByDate(LocalDateTime date, boolean active){
+    public List <Borrowing> showBorrowingByDateByActive(LocalDateTime date, boolean active){
         List <Borrowing> bor = borrowingJPA.findByIsBorrowed(date, active);
-        System.out.println(bor);
+        for (Borrowing b : bor) {
+            System.out.println(b);
+        }
         return bor;
     }
 
-}
-
-/*
-
-    public Book updateBook(Long id, String title, int year, int copies, int borrowedCopies, int availableCopies, Author author, PublishingHouse publishingHouse) {
-        Book  b = bookJPA.findById(id);
-        if (title != null) { b.setTitle(title); }
-         b.setYear(year);
-         b.setCopies(copies);
-         b.setBorrowedCopies(borrowedCopies);
-         b.setAvailableCopies(availableCopies);
-         b.setAuthor(author);
-         b.setEditorial(publishingHouse);
-         b.setActive(true);
-        bookJPA.merge(b);
-        return  b;
+    public Borrowing updateBorrowing(Long id, LocalDateTime devolutionDate, Book book, Client client) {
+        Borrowing bor = borrowingJPA.findById(id);
+        if (devolutionDate != null) { bor.setDevolutionDate(devolutionDate); }
+        if (book != null) { bor.setBook(book); }
+        if (client != null) { bor.setClient(client); }
+        borrowingJPA.merge(bor);
+        return bor;
     }
 
-    public boolean inactiveBook(Long id) {
-        Book  b = bookJPA.findById(id);
-        if (b.isActive()) {
-        b.setActive(false);
-        bookJPA.merge(b);
+    public boolean inactiveBorrowing(Long id) {
+        Borrowing bor = borrowingJPA.findById(id);
+        if (bor.isActive()) {
+        bor.setActive(false);
+        borrowingJPA.merge(bor);
         return true; }
         else {return false; }
     }
 
-    public boolean reactiveBook(Long id) {
-        Book  b = bookJPA.findById(id);
-        if (!b.isActive()) {
-        b.setActive(true);
-        bookJPA.merge(b);
-        return true; }
+    public boolean reactiveBorrowing(Long id) {
+        Borrowing bor = borrowingJPA.findById(id);
+        if (!bor.isActive()) {
+            bor.setActive(true);
+            borrowingJPA.merge(bor);
+            return true; }
         else {return false; }
     }
 
-    public boolean deleteBook(Long id) {
-        bookJPA.remove(id);
+    public boolean deleteBorrowing(Long id) {
+        borrowingJPA.remove(id);
         return true;
     }
 }
-*/
